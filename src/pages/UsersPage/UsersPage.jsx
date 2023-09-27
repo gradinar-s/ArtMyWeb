@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser, fetchUsers } from "../../api/api";
+import { fetchUsers } from "../../api/api";
 import { setUsers } from "../../store/userReducer";
+import { useRequest } from "../../hooks/useRequest";
 import { Button, Skeleton } from "../../components/ui";
 import { UsersTable, GenderChoice } from "../../components/application";
-import { useRequest } from "../../hooks/useRequest";
 
 const UsersPage = () => {
   const dispatch = useDispatch();
 
   const [gender, setGender] = useState(null);
-  // const [isLoading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageRowsCount, setPageRowsCount] = useState(5);
   const [totalUsersCount, setTotalUsersCount] = useState(0);
@@ -37,24 +36,6 @@ const UsersPage = () => {
       setTotalUsersCount(data.meta.pagination.total);
     }
   }, [data]);
-
-  // const fetchData = async (params) => {
-  //   setLoading(true);
-
-  //   try {
-  //     const result = await fetchUsers(params);
-  //     dispatch(setUsers(result.data));
-  //     setTotalUsersCount(result.meta.pagination.total);
-  //   } catch (error) {
-  //     // display error
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  useEffect(() => {
-    // fetchData({ gender, page: currentPage + 1, per_page: pageRowsCount });
-  }, [gender, currentPage, pageRowsCount]);
 
   const onResetFilters = () => {
     setGender(null);
